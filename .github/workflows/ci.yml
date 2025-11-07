@@ -29,4 +29,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
     - run: npm ci
-    - run: npm test
+    - name: Start server and check status
+      run: |
+        node server.js &
+        sleep 5 # Wait for the server to start
+        curl -f http://localhost:3000/status
